@@ -62,15 +62,17 @@ body{
 /* 操作ボタンは右上に横ならび。
    ロゴを内部座標 y=26 まで下げてあるので、その上の帯に収まる。
    子どもにも読めるよう、文字は大きめにしてある。 */
-.bar{position:absolute;right:1.5%;top:1.8%;z-index:4;display:flex;gap:0.6%}
+.bar{position:absolute;right:1.5%;top:1.6%;z-index:4;display:flex;gap:0.6%}
 .tgl{font-family:var(--body);font-weight:900;
-  /* 幅はいちばん長い「こうかおん」（5文字）に合わせ、
-     左右に11px以上の余白が残るようにしてある。4つとも同じ大きさ。 */
-  font-size:clamp(13px,2.1vw,20px);line-height:1;
-  width:clamp(90px,13.6vw,134px);height:clamp(34px,4.3vw,46px);
-  padding:0;border:3px solid var(--ink);border-radius:999px;cursor:pointer;
+  /* タイトルとの釣り合いをとるため、以前の 7割ほどに縮めてある。
+     幅・高さ・文字を同じ比率で下げているので、形は変わらない。
+     幅はいちばん長い「こうかおん」（5文字）に合わせ、左右の余白を約7px以上残す。
+     4つとも同じ大きさ。 */
+  font-size:clamp(8px,1.47vw,14px);line-height:1;
+  width:clamp(54px,9.5vw,94px);height:clamp(20px,3vw,32px);
+  padding:0;border:2px solid var(--ink);border-radius:999px;cursor:pointer;
   background:rgba(255,246,230,.9);color:var(--ink);white-space:nowrap;
-  box-shadow:0 3px 0 rgba(36,46,62,.25)}
+  box-shadow:0 2px 0 rgba(36,46,62,.25)}
 .tgl[aria-pressed="false"]{background:rgba(198,192,180,.9);color:#7A746C}
 .tgl:active{transform:translateY(2px);box-shadow:none}
 .tgl:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
@@ -1089,15 +1091,14 @@ function titleText(txt, size, fill, y, ring, font, lw, edge){
 function drawTitle(g){
   // トップはタイトルだけ。あそびかたは 難易度を選んだ後の画面で見せる。
   const bob = Math.round(Math.sin(g.t*2.2)*1.5);
-  /* ロゴは3倍。右上のボタンを1.5倍に大きくしたぶん、上の帯を広くとる必要があり、
-     ロゴを y=40 まで下げている。4倍だと下の説明文が建物にかかる。 */
-  drawLogo((40+bob)*SC, 3);
-  titleText("ふくを あつめて あたらしい サイクルを つくろう！", 16, "#FFFFFF", (81+bob)*SC);
+  /* ロゴは4倍。右上のボタンを小さくしたぶん、ロゴを大きくして釣り合いをとった。 */
+  drawLogo((24+bob)*SC, 4);
+  titleText("ふくを あつめて あたらしい サイクルを つくろう！", 16, "#FFFFFF", (78+bob)*SC);
   // 「えらんでね」はゆっくり点滅させて、ボタンへ目を向けさせる
   const blink = 0.6 + 0.4*Math.sin(g.t*3.2);
   ctx.save(); ctx.globalAlpha = blink;
   // 縁は白。濃い黄の文字を白でふちどると、水色の空の上でよく浮く。
-  titleText("▼ むずかしさを えらんでね ▼", 24, "#E09A10", (91+bob)*SC, false, null, 0.22, "#FFFFFF");
+  titleText("▼ むずかしさを えらんでね ▼", 24, "#E09A10", (89+bob)*SC, false, null, 0.22, "#FFFFFF");
   ctx.restore();
 }
 
